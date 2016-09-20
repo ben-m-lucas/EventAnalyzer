@@ -1,0 +1,27 @@
+﻿[
+    {
+        EventSeconds: 25,
+        EventType: 'Off'
+    },
+    {
+        EventSeconds: 40,
+        EventType: 'On'
+    },
+    {
+        EventSeconds: 3,
+        EventType: 'Off'
+    },
+    {
+        EventSeconds: 55,
+        EventType: 'Off'
+    },
+    {
+        EventSeconds: 12,
+        EventType: 'On'
+    },
+    {
+        EventSeconds: 88,
+        EventType: 'Off'
+    }
+
+]
