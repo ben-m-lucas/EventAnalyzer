@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EventAnalyzer.Domain
 {
@@ -15,6 +14,9 @@ namespace EventAnalyzer.Domain
 
         public Analysis(IEnumerable<SwitchEvent> events)
         {
+            Debug.Assert(events != null);
+            Debug.Assert(events.Count() > 0);
+
             _events = events;
         }
 
