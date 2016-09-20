@@ -11,8 +11,11 @@ namespace EventAnalyzer.Domain
     /// </summary>
     public class Analysis
     {
+        private IEnumerable<SwitchEvent> _events;
+
         public Analysis(IEnumerable<SwitchEvent> events)
         {
+            _events = events;
         }
 
         /// <summary>
@@ -20,7 +23,7 @@ namespace EventAnalyzer.Domain
         /// </summary>
         public int TotalSeconds
         {
-            get { throw new NotImplementedException(); }
+            get { return _events.Sum(x => x.EventSeconds); }
         }
 
         /// <summary>
@@ -28,7 +31,7 @@ namespace EventAnalyzer.Domain
         /// </summary>
         public int EventCount
         {
-            get { throw new NotImplementedException(); }
+            get { return _events.Count(); }
         }
 
         /// <summary>
@@ -36,7 +39,12 @@ namespace EventAnalyzer.Domain
         /// </summary>
         public int AverageSeconds
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                double average = _events.Average(x => x.EventSeconds);
+                double roundedAverage = Math.Round(average, MidpointRounding.AwayFromZero);
+                return Convert.ToInt32(roundedAverage);
+            }
         }
 
         /// <summary>
@@ -44,7 +52,12 @@ namespace EventAnalyzer.Domain
         /// </summary>
         public int[] SortedSeconds
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return _events.OrderBy(x => x.EventSeconds)
+                                .Select(x => x.EventSeconds)
+                                .ToArray();
+            }
         }
 
         /// <summary>
@@ -52,7 +65,13 @@ namespace EventAnalyzer.Domain
         /// </summary>
         public SwitchEventType MostCommonEventType
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                var eventGroupWithMostEvents = _events.GroupBy(x => x.EventType)
+                                                        .OrderByDescending(x => x.Count())
+                                                        .First();
+                return eventGroupWithMostEvents.Key;
+            }
         }
     }
 }
